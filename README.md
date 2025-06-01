@@ -69,7 +69,7 @@ Amazon S3 je skalabilni sistem za skladištenje podataka koji omogućava čuvanj
 
 ## Upotreba servisa u projektu 
 
-![Arhitektura servisa](aws-tutorial-diagram.png)
+![Arhitektura servisa](./assets/aws-tutorial-diagram.png)
 
 - U konzolnoj C# applikaciji korisnik unosi podatke za generisanje sertifikata (informacije o polazniku kursa i naziv kursa).
 - Unete podatke aplikacije šalje na queue pod nazivom create-certificate-queue.
@@ -124,7 +124,7 @@ Instalirajte AWS CLI ako već nije instaliran. Potom pokrenite sledeću komandu 
 aws configure
 ```
 Unesite odgovarajuće vrednosti kao što je prikazano na slici ispod.
-![aws configure](aws-configure.png)
+![aws configure](./assets/aws-configure.png)
 
 ### 5. Instalacija Visual Studio-a, .NET SDK-a i AWS ekstenzije
 
@@ -159,7 +159,7 @@ dotnet --version
 
 Pre pokretanja aplikacije, neophodno je instalirati `AWSSDK.SQS` paket putem NuGet Package Manager-a. Na slici ispod prikazan je način instalacije u Visual Studio okruženju:
 
-![Nuget Package](nuget-package.png)
+![Nuget Package](./assets/nuget-package.png)
 
 ---
 
@@ -172,7 +172,7 @@ Fajl Program.cs sadrži glavnu logiku aplikacije:
 - Zatim se kreira instanca `PublishService` klase, kojoj se kroz konstruktor prosleđuje instanca `AmazonSQSClient`.
 - `AmazonSQSClient` se kreira sa pristupnim ključevima (`AccessKey`, `SecretKey`) i definisanim AWS regionom.
 - Kreira se model sertifikata i poziva metoda `Publish`, koja šalje podatke na red.
-![`Program.cs`](program.cs.png)
+![`Program.cs`](./assets/program.cs.png)
 ---
 
 #### 4. Kreiranje AWS SQS reda
@@ -186,7 +186,7 @@ Pre nego što aplikacija može da šalje poruke, neophodno je da se na AWS-u kre
 - Ostatak podešavanja može ostati podrazumevan, osim ako ti nisu potrebne dodatne opcije (npr. politika pristupa).
 
 Nakon kreiranja, kopirati URL novog reda jer će biti potreban u kodu za slanje poruka.
-![sqs](sqs.png)
+![sqs](./assets/sqs.png)
 
 
 ### PdfGeneratorLambda
@@ -199,7 +199,7 @@ Nakon kreiranja, kopirati URL novog reda jer će biti potreban u kodu za slanje 
 
 Potrebno je kreirati novi .NET projekat kao što je prikazano na slici:
 
-![aws-lambda](aws-lambda.png)
+![aws-lambda](./assets/aws-lambda.png)
 
 ---
 
@@ -207,7 +207,7 @@ Potrebno je kreirati novi .NET projekat kao što je prikazano na slici:
 
 Za potrebe ove Lambda funkcije, potrebno je instalirati sledeće NuGet pakete:
 
-![lambda-libraries](lambda-libraries.png)
+![lambda-libraries](./assets/lambda-libraries.png)
 
 ---
 
@@ -221,7 +221,7 @@ Glavna logika Lambda funkcije obuhvata sledeće korake:
 
 Primer funkcije prikazan je na slici:
 
-![lambda-function](aws-lambda-function.png)
+![lambda-function](./assets/aws-lambda-function.png)
 
 ---
 
@@ -229,11 +229,11 @@ Primer funkcije prikazan je na slici:
 
 1. Desnim klikom na projekat odaberi opciju **"Publish to AWS Lambda"**:
 
-   ![publish](publish.png)
+   ![publish](./assets/publish.png)
 
 2. U sledećem koraku unesi ime Lambda funkcije i izvrši deploy. Ukoliko deploy ne uspe iz prvog pokušaja, koristi opciju **"Redeploy"**:
 
-   ![deploy](deploy.png)
+   ![deploy](./assets/deploy.png)
 
 ---
 
@@ -241,7 +241,7 @@ Primer funkcije prikazan je na slici:
 
 Nakon što je Lambda funkcija uspešno deployovana, potrebno je dodati triger koji će aktivirati ovu funkciju. U našem slučaju, to je **SQS red**:
 
-![triger](aws-lambda-trigger.png)
+![triger](./assets/aws-lambda-trigger.png)
 
 ---
 
