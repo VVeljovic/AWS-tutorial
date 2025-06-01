@@ -3,10 +3,25 @@ using Amazon.Runtime;
 using Amazon.SQS;
 using CertificateServiceClient;
 
-var text = File.ReadLines("C:\\Users\\Veljko Veljovic\\Desktop\\AWS.txt").ToList();
+while (true)
+{
+    Console.WriteLine("Enter candidate's first name");
+    var name = Console.ReadLine();
 
-var pubslichCert = new PublishCertificate(new AmazonSQSClient(text[0], text[1], RegionEndpoint.USEast1));
+    Console.WriteLine("Enter candidate's last name");
+    var lastName =  Console.ReadLine();
 
-var model = new CertificatesModel("Nemanja", "Antic", "Management", 3.3);
+    Console.WriteLine("Enter course name");
+    var courseName = Console.ReadLine();
 
-await pubslichCert.Publish(model);
+    var secrets = File.ReadLines("C:\\Users\\Veljko Veljovic\\Desktop\\AWS.txt")
+        .ToList();
+
+    var pubslichCert = new PublishCertificate(new AmazonSQSClient(secrets[0],
+        secrets[1],
+        RegionEndpoint.USEast1));
+
+    var model = new CertificatesModel(name, lastName, courseName);
+
+    await pubslichCert.Publish(model);
+}
