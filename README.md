@@ -12,23 +12,36 @@ Ovaj tutorijal pruža praktični uvod u AWS (Amazon Web Services) i njegove mogu
 
 4. Kako da koristi S3 kao trajnu memoriju za skladištenje rezultata ili fajlova.
 
-## Šta je AWS i šta pruža
+## Problem koji AWS rešava
 
-**Amazon Web Services (AWS)** je vodeća cloud platforma koju razvija Amazon, a koja omogućava korisnicima da kreiraju, implementiraju i skaliraju aplikacije korišćenjem servisa dostupnih putem interneta. Umesto da aplikacije hostuju lokalno ili na sopstvenim serverima, korisnici mogu koristiti AWS infrastrukturu „na zahtev“, plaćajući samo resurse koje stvarno koriste.
+Moderne veb aplikacije zahtevaju skalabilnu, pouzdanu i bezbednu infrastrukturu koja omogućava brz razvoj, automatsko upravljanje resursima, monitoring i jednostavnu integraciju sa različitim servisima. Tradicionalno hostovanje na fiksnim serverima često dovodi do:
 
-AWS nudi više od 200 servisa koji pokrivaju širok spektar oblasti, uključujući:
+- Nemogućnosti brzog skaliranja u skladu sa rastućim brojem korisnika  
+- Visokih troškova infrastrukture  
+- Komplikovanog procesa obezbeđivanja resursa i upravljanja bezbednošću  
+- Nedostatka vidljivosti i alata za praćenje rada aplikacije u realnom vremenu  
 
-- **Računarsku snagu (Compute)** – npr. EC2 (virtualne mašine), Lambda (serverless funkcije)
-- **Skladištenje podataka (Storage)** – npr. S3 (objektno skladište), EBS (blok skladište)
-- **Baze podataka (Databases)** – npr. RDS, DynamoDB
-- **Mreže i isporuku sadržaja (Networking & CDN)** – npr. VPC, CloudFront
-- **Integraciju i obradu podataka** – npr. SQS (red poruka), SNS (notifikacije), Step Functions (orkestracija)
+Ovaj problem je naročito izražen kod aplikacija koje se razvijaju u mikroservisnoj arhitekturi, koriste više baza podataka, zahtevaju asinhronu komunikaciju i moraju biti visoko dostupne.
 
-AWS omogućava sledeće prednosti:
-- Skalabilnost i fleksibilnost sistema
-- Plaćanje po korišćenju (pay-as-you-go model)
-- Visoku dostupnost i pouzdanost
-- Jednostavnu automatizaciju i integraciju
+## Zašto AWS?
+
+AWS predstavlja kompletno cloud rešenje koje omogućava izgradnju, deploy i skalabilnost aplikacija uz minimalnu konfiguraciju i troškove održavanja. Korišćenjem servisa kao što su:
+
+- **AWS Lambda** – za serverless arhitekturu i izvršavanje koda bez upravljanja serverima  
+- **Amazon S3** – za pouzdano čuvanje statičkih fajlova i medija  
+- **Amazon SQS** – za asinhronu komunikaciju između mikroservisa  
+- **AWS Secrets Manager** – za bezbedno upravljanje poverljivim podacima  
+- **IAM i VPC** – za kontrolu pristupa i izolaciju mrežnog okruženja  
+
+AWS omogućava izuzetno brz i stabilan razvoj aplikacije, uz mogućnost lakog praćenja i automatskog prilagođavanja opterećenju.
+
+U odnosu na konkurentna rešenja, AWS nudi:
+
+- Najveći broj dostupnih servisa  
+- Bolju dokumentaciju i podršku za početnike  
+- Širi free tier pogodan za učenje i prototipiranje  
+
+AWS je izabran jer pruža kompletnu infrastrukturu koja omogućava brz, bezbedan i moderan razvoj aplikacije u cloud okruženju.
 
 ### Servisi korišćeni u ovom tutorijalu
 
