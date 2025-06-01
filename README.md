@@ -159,20 +159,20 @@ dotnet --version
 
 Pre pokretanja aplikacije, neophodno je instalirati `AWSSDK.SQS` paket putem NuGet Package Manager-a. Na slici ispod prikazan je način instalacije u Visual Studio okruženju:
 
-[Nuget Package](nuget-package.png)
+![Nuget Package](nuget-package.png)
 
 ---
 
 #### 2. Program.cs fajl
 
-Fajl [`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
+Fajl Program.cs sadrži glavnu logiku aplikacije:
 
 - Korisnik unosi podatke o sertifikatu: ime, prezime, naziv kursa, datum itd.
 - Ukoliko `SecretKey` i `AccessKey` nisu prethodno učitani, aplikacija ih učitava iz lokalnog fajla.
 - Zatim se kreira instanca `PublishService` klase, kojoj se kroz konstruktor prosleđuje instanca `AmazonSQSClient`.
 - `AmazonSQSClient` se kreira sa pristupnim ključevima (`AccessKey`, `SecretKey`) i definisanim AWS regionom.
 - Kreira se model sertifikata i poziva metoda `Publish`, koja šalje podatke na red.
-
+![`Program.cs`](program.cs.png)
 ---
 
 #### 4. Kreiranje AWS SQS reda
@@ -189,12 +189,79 @@ Nakon kreiranja, kopirati URL novog reda jer će biti potreban u kodu za slanje 
 ![sqs](sqs.png)
 
 
-### 2. PdfGeneratorLambda
+### PdfGeneratorLambda
 
-PdfGeneratorLambda je Lambda servis koji se trigeruje kada se poruka pošalje u red create-certificate. Potrebno je kreirati novi projekat kao na slici.
+`PdfGeneratorLambda` je AWS Lambda funkcija koja se aktivira kada se pošalje poruka u red `create-certificate`. Njena uloga je da obradi primljenu poruku, generiše PDF fajl i sačuva ga na Amazon S3.
+
+---
+
+#### 1. Kreiranje projekta
+
+Potrebno je kreirati novi .NET projekat kao što je prikazano na slici:
+
 ![aws-lambda](aws-lambda.png)
-Za potrebe ovog servisa neophodno je instalirati sledeće pakete
+
+---
+
+#### 2. Instalacija paketa
+
+Za potrebe ove Lambda funkcije, potrebno je instalirati sledeće NuGet pakete:
+
 ![lambda-libraries](lambda-libraries.png)
-Glavna funkcija u okviru ovog servisa jeste funkcija za procesiranje poruka. Poruka se najpre deserijalizuje, generiše se pdf fajl, a zatim se pravi request-model za skladištenje pdf-fajla na s3. bucket. 
+
+---
+
+#### 3. Implementacija funkcije
+
+Glavna logika Lambda funkcije obuhvata sledeće korake:
+
+- Deserijalizacija poruke primljene sa SQS reda
+- Generisanje PDF fajla
+- Kreiranje request-modela za slanje fajla na Amazon S3
+
+Primer funkcije prikazan je na slici:
+
 ![lambda-function](aws-lambda-function.png)
 
+---
+
+#### 4. Deploy Lambda funkcije
+
+1. Desnim klikom na projekat odaberi opciju **"Publish to AWS Lambda"**:
+
+   ![publish](publish.png)
+
+2. U sledećem koraku unesi ime Lambda funkcije i izvrši deploy. Ukoliko deploy ne uspe iz prvog pokušaja, koristi opciju **"Redeploy"**:
+
+   ![deploy](deploy.png)
+
+---
+
+#### 5. Dodavanje SQS triger-a
+
+Nakon što je Lambda funkcija uspešno deployovana, potrebno je dodati triger koji će aktivirati ovu funkciju. U našem slučaju, to je **SQS red**:
+
+![triger](aws-lambda-trigger.png)
+
+---
+
+#### 6. Kreiranje S3 bucketa
+
+Lambda funkcija će čuvati generisane PDF fajlove u **Amazon S3 bucket-u**. Za kreiranje bucketa:
+
+- Otvori **S3 servis** u AWS konzoli
+- Klikni na **"Create bucket"**
+- Unesi željeno ime bucketa i potvrdi kreiranje
+
+---
+
+#### 7. IAM rola i dozvole
+
+Na kraju, potrebno je da Lambda funkciji dodeliš **IAM rolu** sa sledećim privilegijama:
+
+- Čitanje poruka iz SQS reda (`sqs:ReceiveMessage`)
+- Pisanje fajlova u S3 bucket (`s3:PutObject`)
+
+Ovu rolu možeš kreirati iz IAM sekcije u AWS konzoli, a zatim je dodeliti svojoj Lambda funkciji kroz sekciju **Configuration → Permissions**.
+
+---
