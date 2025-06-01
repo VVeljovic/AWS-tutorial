@@ -66,3 +66,7 @@ Amazon S3 je skalabilni sistem za skladištenje podataka koji omogućava čuvanj
 - Verzionisanje i kontrola pristupa.
 - Jednostavna integracija sa drugim AWS servisima, uključujući Lambda, CloudFront, Athena i druge.
 ---
+
+## Upotreba servisa u projektu 
+
+![Arhitektura servisa](C:\Users\Veljko Veljovic\Documents\aws-tutorial-diagram.png)
