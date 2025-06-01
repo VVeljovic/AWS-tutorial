@@ -159,7 +159,7 @@ dotnet --version
 
 Pre pokretanja aplikacije, neophodno je instalirati `AWSSDK.SQS` paket putem NuGet Package Manager-a. Na slici ispod prikazan je način instalacije u Visual Studio okruženju:
 
-![Nuget Package](./assets/nuget-package.png)
+![Nuget Package](./assets/nuget.png)
 
 ---
 
