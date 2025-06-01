@@ -175,6 +175,18 @@ Fajl Program.cs sadrži glavnu logiku aplikacije:
 ![`Program.cs`](./assets/program.cs.png)
 ---
 
+
+#### 3. PublishCertificate.cs fajl
+
+Fajl PublishCertificateService implementira logiku za slanje poruke na AWS SQS:
+
+- Kroz konstruktor prima interfejs `IAmazonSQS`.
+- Model sertifikata se serijalizuje u JSON format.
+- Kreira se instanca `SendMessageRequest` koja sadrži JSON podatke i URL ciljnog reda.
+- Poruka se šalje na AWS SQS red pomoću metode `SendMessageAsync`.
+![`PublishCertificate.cs`](./assets/publishcertificate.cs.png)
+---
+
 #### 4. Kreiranje AWS SQS reda
 
 Pre nego što aplikacija može da šalje poruke, neophodno je da se na AWS-u kreira red (queue) koji će služiti za prijem sertifikata.
