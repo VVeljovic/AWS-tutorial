@@ -77,3 +77,48 @@ Amazon S3 je skalabilni sistem za skladištenje podataka koji omogućava čuvanj
 - Lambda uz pomoć QuestPDF biblioteke generiše pdf fajl.
 - Kreira se ime fajla kao (firstName-LastName-courseName)
 - Fajl se zatim stoje na S3 bucket "pdf-certificates-veljko-test"
+
+## Pokretanje aplikacije i pravljenje servisa
+
+Da biste uspešno pokrenuli aplikaciju i postavili neophodne servise, potrebno je da imate AWS nalog. U nastavku su opisani svi koraci koje je potrebno uraditi:
+
+### 1. Kreiranje besplatnog (Free Tier) naloga na AWS-u
+
+1. Posetite [https://aws.amazon.com/free](https://aws.amazon.com/free).
+2. Kliknite na **Create a Free Account**.
+3. Popunite tražene podatke: ime, email, lozinku i naziv naloga.
+4. Unesite podatke o kreditnoj kartici (neće biti naplaćeni dok ste u okviru Free Tier-a).
+5. Izaberite osnovni plan (**Basic Support**).
+
+### 2. Podešavanje višefaktorske autentifikacije (MFA)
+
+Zbog bezbednosti, preporučuje se da odmah nakon kreiranja naloga podesite MFA:
+
+1. Prijavite se na **AWS Management Console**.
+2. Idite na **IAM** servis.
+3. U meniju sa leve strane izaberite **Users**, zatim kliknite na svoje korisničko ime.
+4. Kliknite na **Security credentials** tab.
+5. U sekciji **Multi-factor authentication (MFA)** kliknite na **Assign MFA device**.
+6. Izaberite **Virtual MFA device** i pratite uputstvo:
+   - Preuzmite aplikaciju kao što je Google Authenticator ili Authy.
+   - Skenirajte QR kod i unesite dva uzastopna koda za potvrdu.
+
+### 3. Kreiranje Access Key i Secret Key vrednosti
+
+Da biste omogućili CLI pristup aplikaciji, potrebno je kreirati **Access Key**:
+
+1. Idite na **IAM** > **Users** > vaše korisničko ime > **Security credentials**.
+2. U sekciji **Access keys** kliknite na **Create access key**.
+3. Izaberite **Application running outside AWS**.
+4. Na sledećem koraku kopirajte:
+   - **Access key ID**
+   - **Secret access key** (⚠️ *ova vrednost je prikazana samo jednom!*)
+
+> 🔐 **Napomena:** Obavezno odmah sačuvajte `Secret access key` lokalno (npr. u `.env` fajlu ili u password manager-u). AWS ne omogućava ponovni prikaz ove vrednosti!
+
+### 4. Konfigurisanje AWS CLI
+
+Instalirajte AWS CLI ako već nije instaliran. Potom pokrenite sledeću komandu u terminalu:
+
+```bash
+aws configure
