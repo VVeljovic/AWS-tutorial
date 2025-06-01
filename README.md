@@ -69,4 +69,4 @@ Amazon S3 je skalabilni sistem za skladištenje podataka koji omogućava čuvanj
 
 ## Upotreba servisa u projektu 
 
-![Arhitektura servisa](C:\Users\Veljko Veljovic\Documents\aws-tutorial-diagram.png)
+![Arhitektura servisa](aws-tutorial-diagram.png)
