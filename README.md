@@ -159,13 +159,13 @@ dotnet --version
 
 Pre pokretanja aplikacije, neophodno je instalirati `AWSSDK.SQS` paket putem NuGet Package Manager-a. Na slici ispod prikazan je način instalacije u Visual Studio okruženju:
 
-![Nuget Package](nuget-package.png)
+[Nuget Package](nuget-package.png)
 
 ---
 
 #### 2. Program.cs fajl
 
-Fajl ![`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
+Fajl [`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
 
 - Korisnik unosi podatke o sertifikatu: ime, prezime, naziv kursa, datum itd.
 - Ukoliko `SecretKey` i `AccessKey` nisu prethodno učitani, aplikacija ih učitava iz lokalnog fajla.
@@ -175,15 +175,26 @@ Fajl ![`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
 
 ---
 
-#### 3. PublishCertificate.cs fajl
+#### 4. Kreiranje AWS SQS reda
 
-Fajl ![`PublishCertificate.cs`](publishsertificate.cs.png) implementira logiku za slanje poruke na AWS SQS:
+Pre nego što aplikacija može da šalje poruke, neophodno je da se na AWS-u kreira red (queue) koji će služiti za prijem sertifikata.
 
-- Kroz konstruktor prima interfejs `IAmazonSQS`.
-- Model sertifikata se serijalizuje u JSON format.
-- Kreira se instanca `SendMessageRequest` koja sadrži JSON podatke i URL ciljnog reda.
-- Poruka se šalje na AWS SQS red pomoću metode `SendMessageAsync`.
+- Otvori AWS Management Console i idi na **Amazon SQS** servis.
+- Klikni na dugme **"Create queue"**.
+- Izaberi **Standard** tip reda.
+- Kao ime reda unesi npr. `create-certificate`.
+- Ostatak podešavanja može ostati podrazumevan, osim ako ti nisu potrebne dodatne opcije (npr. politika pristupa).
 
----
+Nakon kreiranja, kopirati URL novog reda jer će biti potreban u kodu za slanje poruka.
+![sqs](sqs.png)
 
+
+### 2. PdfGeneratorLambda
+
+PdfGeneratorLambda je Lambda servis koji se trigeruje kada se poruka pošalje u red create-certificate. Potrebno je kreirati novi projekat kao na slici.
+![aws-lambda](aws-lambda.png)
+Za potrebe ovog servisa neophodno je instalirati sledeće pakete
+![lambda-libraries](lambda-libraries.png)
+Glavna funkcija u okviru ovog servisa jeste funkcija za procesiranje poruka. Poruka se najpre deserijalizuje, generiše se pdf fajl, a zatim se pravi request-model za skladištenje pdf-fajla na s3. bucket. 
+![lambda-function](aws-lambda-function.png)
 
