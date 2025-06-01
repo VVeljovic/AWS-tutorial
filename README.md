@@ -165,7 +165,7 @@ Pre pokretanja aplikacije, neophodno je instalirati `AWSSDK.SQS` paket putem NuG
 
 #### 2. Program.cs fajl
 
-Fajl [`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
+Fajl ![`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
 
 - Korisnik unosi podatke o sertifikatu: ime, prezime, naziv kursa, datum itd.
 - Ukoliko `SecretKey` i `AccessKey` nisu prethodno učitani, aplikacija ih učitava iz lokalnog fajla.
@@ -177,7 +177,7 @@ Fajl [`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
 
 #### 3. PublishCertificate.cs fajl
 
-Fajl [`PublishCertificate.cs`](publishsertificate.cs.png) implementira logiku za slanje poruke na AWS SQS:
+Fajl ![`PublishCertificate.cs`](publishsertificate.cs.png) implementira logiku za slanje poruke na AWS SQS:
 
 - Kroz konstruktor prima interfejs `IAmazonSQS`.
 - Model sertifikata se serijalizuje u JSON format.
