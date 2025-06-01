@@ -32,17 +32,37 @@ AWS omogućava sledeće prednosti:
 
 ### Servisi korišćeni u ovom tutorijalu
 
-U okviru ovog tutorijala koristićemo tri osnovna AWS servisa koji čine tipičnu serverless arhitekturu:
+U okviru ovog tutorijala koristićemo tri osnovna AWS servisa koji zajedno omogućavaju kreiranje skalabilnog i serverless sistema: **Amazon SQS**, **AWS Lambda**, i **Amazon S3**. U nastavku je detaljan opis svakog od njih.
 
-- **Amazon SQS (Simple Queue Service)**  
-  Omogućava asinhronu komunikaciju između komponenti sistema pomoću redova poruka. Idealno za razdvajanje servisa i obradu zadataka u pozadini.
+---
+#### 📬 Amazon SQS (Simple Queue Service)
 
-- **AWS Lambda**  
-  Omogućava izvršavanje koda kao reakciju na događaje bez potrebe za pokretanjem i održavanjem servera. Plaća se samo vreme izvršavanja.
+Amazon SQS je **fully managed** servis za razmenu poruka između komponenti sistema. Pruža mogućnost da jedan servis pošalje poruku u red, dok drugi servis (npr. Lambda funkcija ili neki ECS servis) može tu poruku da pročita i obradi – sve to bez direktne međuzavisnosti između tih komponenti.
 
-- **Amazon S3 (Simple Storage Service)**  
-  Skalabilno i pouzdano objektno skladište za čuvanje fajlova, podataka, logova, slika i drugih statičnih resursa.
+**Osnovne karakteristike:**
+- Decoupling (razdvajanje) servisa – omogućava nezavisno skaliranje i razvoj različitih delova sistema.
+- Pouzdana isporuka poruka – garantuje da nijedna poruka neće biti izgubljena (uz pravilno konfigurisane retry mehanizme).
+- Podržava FIFO redove za garantovani redosled poruka.
+- Jednostavno podešavanje prava pristupa i bezbednosti putem IAM politika.
+---
+#### ⚙️ AWS Lambda
 
-Korišćenjem ovih servisa, pokazaćemo kako da napravite distribuirani sistem koji prima poruke, obrađuje ih i čuva rezultate – sve bez potrebe za tradicionalnim serverima.
+AWS Lambda omogućava izvršavanje funkcija u cloudu **bez potrebe za upravljanjem serverima**. Dovoljno je napisati kod za Lambda funkciju, definisati trigger i AWS se brine o svemu ostalom – skaliranju, održavanju, resursima i naplati.
 
+**Osnovne karakteristike:**
+- Potpuno serverless – korisnik ne brine o infrastrukturi.
+- Automatsko skaliranje – Lambda funkcije se pokreću on-demand za svaku poruku.
+- Integracija sa brojnim AWS servisima – uključujući SQS, S3, API Gateway i druge.
+- Naplata po broju poziva i trajanju izvršavanja funkcije.
+---
 
+#### 🗂️ Amazon S3 (Simple Storage Service)
+
+Amazon S3 je skalabilni sistem za skladištenje podataka koji omogućava čuvanje bilo koje vrste fajlova – od tekstualnih dokumenata i slika, do logova i binarnih podataka.
+
+**Osnovne karakteristike:**
+- Visoka dostupnost i otpornost na greške (objekti se čuvaju redundantno).
+- Skalabilnost bez potrebe za manuelnim podešavanjem kapaciteta.
+- Verzionisanje i kontrola pristupa.
+- Jednostavna integracija sa drugim AWS servisima, uključujući Lambda, CloudFront, Athena i druge.
+---
