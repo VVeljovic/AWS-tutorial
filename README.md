@@ -126,3 +126,64 @@ aws configure
 Unesite odgovarajuće vrednosti kao što je prikazano na slici ispod.
 ![aws configure](aws-configure.png)
 
+### 5. Instalacija Visual Studio-a, .NET SDK-a i AWS ekstenzije
+
+Da biste mogli da razvijate i pokrenete aplikaciju lokalno, potrebno je da instalirate sledeće:
+
+1. Preuzmite i instalirajte **Visual Studio** sa [https://visualstudio.microsoft.com](https://visualstudio.microsoft.com)
+   - Tokom instalacije, obavezno izaberite workload **ASP.NET and web development**.
+2. Preuzmite i instalirajte **najnoviju verziju .NET SDK-a** sa [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
+3. Nakon instalacije Visual Studio-a, instalirajte i **AWS Toolkit for Visual Studio**:
+   - Otvorite Visual Studio
+   - Idite na **Extensions** > **Manage Extensions**
+   - U pretrazi pronađite **AWS Toolkit for Visual Studio**
+   - Kliknite na **Download** i restartujte Visual Studio kada se zatraži
+
+> ✅ Nakon instalacije, proverite da li su .NET alati dostupni pokretanjem sledeće komande u terminalu:
+
+```bash
+dotnet --version
+```
+
+## Opis servisa i ključne karakteristike svakog servisa. 
+
+### 1. CertificateServiceClient
+
+`CertificateServiceClient` je jednostavna C# konzolna aplikacija čija je svrha da prikuplja podatke o sertifikatu i prosleđuje ih putem SQS reda poruka. Korisnik unosi podatke kroz komandnu liniju, a aplikacija ih obrađuje i šalje na AWS SQS red.
+
+#### Koraci implementacije
+
+---
+
+#### 1. Instalacija AWS SDK paketa
+
+Pre pokretanja aplikacije, neophodno je instalirati `AWSSDK.SQS` paket putem NuGet Package Manager-a. Na slici ispod prikazan je način instalacije u Visual Studio okruženju:
+
+![Nuget Package](nuget-package.png)
+
+---
+
+#### 2. Program.cs fajl
+
+Fajl [`Program.cs`](program.cs.png) sadrži glavnu logiku aplikacije:
+
+- Korisnik unosi podatke o sertifikatu: ime, prezime, naziv kursa, datum itd.
+- Ukoliko `SecretKey` i `AccessKey` nisu prethodno učitani, aplikacija ih učitava iz lokalnog fajla.
+- Zatim se kreira instanca `PublishService` klase, kojoj se kroz konstruktor prosleđuje instanca `AmazonSQSClient`.
+- `AmazonSQSClient` se kreira sa pristupnim ključevima (`AccessKey`, `SecretKey`) i definisanim AWS regionom.
+- Kreira se model sertifikata i poziva metoda `Publish`, koja šalje podatke na red.
+
+---
+
+#### 3. PublishCertificate.cs fajl
+
+Fajl [`PublishCertificate.cs`](publishsertificate.cs.png) implementira logiku za slanje poruke na AWS SQS:
+
+- Kroz konstruktor prima interfejs `IAmazonSQS`.
+- Model sertifikata se serijalizuje u JSON format.
+- Kreira se instanca `SendMessageRequest` koja sadrži JSON podatke i URL ciljnog reda.
+- Poruka se šalje na AWS SQS red pomoću metode `SendMessageAsync`.
+
+---
+
+

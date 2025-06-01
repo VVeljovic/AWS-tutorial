@@ -14,7 +14,7 @@ while (true)
     Console.WriteLine("Enter course name");
     var courseName = Console.ReadLine();
 
-    var secrets = File.ReadLines("C:\\Users\\Veljko Veljovic\\Desktop\\AWS.txt")
+    var secrets = File.ReadLines(Constants.SecretPath)
         .ToList();
 
     var pubslichCert = new PublishCertificate(new AmazonSQSClient(secrets[0],
