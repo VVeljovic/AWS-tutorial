@@ -14,14 +14,18 @@ while (true)
     Console.WriteLine("Enter course name");
     var courseName = Console.ReadLine();
 
-    var secrets = File.ReadLines(Constants.SecretPath)
+    var secrets = new List<string>();
+    if(secrets.Count == 0)
+    {
+         secrets = File.ReadLines(Constants.SecretPath)
         .ToList();
+    }
 
     var pubslichCert = new PublishCertificate(new AmazonSQSClient(secrets[0],
         secrets[1],
         RegionEndpoint.USEast1));
 
-    var model = new CertificatesModel(name, lastName, courseName);
+    var model = new CertificatesModel(courseName, name, lastName);
 
     await pubslichCert.Publish(model);
 }

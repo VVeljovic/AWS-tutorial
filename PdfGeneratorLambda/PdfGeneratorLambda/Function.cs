@@ -67,7 +67,7 @@ public class Function
                 page.Content().PaddingVertical(50).Column(column =>
                 {
                     column.Item().AlignCenter().Text("This certificate is proudly presented to").FontSize(20);
-                    column.Item().PaddingVertical(15).AlignCenter().Text(model.FirstName).FontSize(30).Bold();
+                column.Item().PaddingVertical(15).AlignCenter().Text($"{model.FirstName} {model.LastName}").FontSize(30).Bold();
                     column.Item().AlignCenter().Text("for successfully completing the course:").FontSize(20);
                     column.Item().PaddingBottom(10).AlignCenter().Text(model.CourseName).FontSize(26).Bold();
                     column.Item().AlignCenter().Text($"Date: {DateTime.Today:MMMM dd, yyyy}").FontSize(16);
