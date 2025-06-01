@@ -122,3 +122,7 @@ Instalirajte AWS CLI ako već nije instaliran. Potom pokrenite sledeću komandu 
 
 ```bash
 aws configure
+```
+Unesite odgovarajuće vrednosti kao što je prikazano na slici ispod.
+![aws configure](aws-configure)
+
