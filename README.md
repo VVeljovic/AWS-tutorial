@@ -261,19 +261,18 @@ Nakon što je Lambda funkcija uspešno deployovana, potrebno je dodati triger ko
 
 Lambda funkcija će čuvati generisane PDF fajlove u **Amazon S3 bucket-u**. Za kreiranje bucketa:
 
-- Otvori **S3 servis** u AWS konzoli
-- Klikni na **"Create bucket"**
-- Unesi željeno ime bucketa i potvrdi kreiranje
+- Otvoriti **S3 servis** u AWS konzoli
+- Kliknuti na **"Create bucket"**
+- Uneti željeno ime bucketa i potvrditi kreiranje
 
 ---
 
 #### 7. IAM rola i dozvole
 
-Na kraju, potrebno je da Lambda funkciji dodeliš **IAM rolu** sa sledećim privilegijama:
-
-- Čitanje poruka iz SQS reda (`sqs:ReceiveMessage`)
-- Pisanje fajlova u S3 bucket (`s3:PutObject`)
-
-Ovu rolu možeš kreirati iz IAM sekcije u AWS konzoli, a zatim je dodeliti svojoj Lambda funkciji kroz sekciju **Configuration → Permissions**.
-
+Na kraju, potrebno je da Lambda funkciji dodeliti **IAM rolu** .
+1. Prvo je potrebno u IAM sekciji kliknuti na Roles tab i izabrati kreiranje nove role. 
+2. Zatim je potrebno izabrati kom tipu servisa želimo dodeliti novu rolu.
+3. Izabrati permisije, u našem slučaju S3 I SQS FullAccess.
+4. Uneti ime role.
+5. Otići na željeni Lambda servis i dodati lambi kreiranu permisiju.
 ---
