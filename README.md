@@ -70,3 +70,10 @@ Amazon S3 je skalabilni sistem za skladištenje podataka koji omogućava čuvanj
 ## Upotreba servisa u projektu 
 
 ![Arhitektura servisa](aws-tutorial-diagram.png)
+
+- U konzolnoj C# applikaciji korisnik unosi podatke za generisanje sertifikata (informacije o polazniku kursa i naziv kursa).
+- Unete podatke aplikacije šalje na queue pod nazivom create-certificate-queue.
+- Kako poruka pristigne na queue trigeruje se PdfGeneratorLambda.
+- Lambda uz pomoć QuestPDF biblioteke generiše pdf fajl.
+- Kreira se ime fajla kao (firstName-LastName-courseName)
+- Fajl se zatim stoje na S3 bucket "pdf-certificates-veljko-test"
