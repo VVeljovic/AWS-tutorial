@@ -41,9 +41,25 @@ U odnosu na konkurentna rešenja, AWS nudi:
 - Bolju dokumentaciju i podršku za početnike  
 - Širi free tier pogodan za učenje i prototipiranje  
 
+---
+
+### Poređenje sa Microsoft Azure
+
+| Aspekt                     | AWS                                           | Azure                                              |
+|---------------------------|-----------------------------------------------|----------------------------------------------------|
+| **Integracija**           | Platformno neutralan (Linux, open-source)     | Odlična integracija sa Microsoft alatima (Windows, Active Directory, Office 365) |
+| **Serverless**            | AWS Lambda – fleksibilniji i zreliji          | Azure Functions – lakši za početnike               |
+| **Mrežni servisi**        | Veća fleksibilnost, niža latencija            | Stabilni ali manje prilagodljivi                   |
+| **Mašinsko učenje**       | AWS SageMaker – moćniji za napredne projekte  | Azure ML – jednostavniji za osnovne scenarije     |
+| **Cenovni model**         | Detaljan, ali kompleksan                      | Jednostavniji za korisnike iz Windows ekosistema   |
+| **Free tier za učenje**   | Opširniji i trajniji (neki servisi zauvek)    | Ograničeniji i vremenski kraći                     |
+
+---
+
 AWS je izabran jer pruža kompletnu infrastrukturu koja omogućava brz, bezbedan i moderan razvoj aplikacije u cloud okruženju.
 
 ### Servisi korišćeni u ovom tutorijalu
+
 
 U okviru ovog tutorijala koristićemo tri osnovna AWS servisa koji zajedno omogućavaju kreiranje skalabilnog i serverless sistema: **Amazon SQS**, **AWS Lambda**, i **Amazon S3**. U nastavku je detaljan opis svakog od njih.
 
